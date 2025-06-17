@@ -10,12 +10,19 @@ const fccTestingRoutes = require('./routes/fcctesting.js');
 const runner = require('./test-runner.js');
 
 const app = express();
+
+// Seguridad con Helmet
 app.use(helmet());
 app.use(helmet.hidePoweredBy({ setTo: 'PHP 7.4.3' }));
 app.use(helmet.noSniff());
 app.use(helmet.xssFilter());
+
+// Prevención de caché para prueba 18
 app.use((req, res, next) => {
-  res.setHeader('Cache-Control', 'no-store');
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.setHeader('Surrogate-Control', 'no-store');
   next();
 });
 
