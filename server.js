@@ -15,7 +15,7 @@ const app = express();
 app.use(helmet());
 app.use(helmet.hidePoweredBy({ setTo: 'PHP 7.4.3' }));
 app.use(helmet.noSniff());
-app.use(helmet.xssFilter());
+
 
 // Prevención de caché para prueba 18
 app.use((req, res, next) => {
